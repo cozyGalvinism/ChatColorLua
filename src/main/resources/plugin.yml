@@ -7,8 +7,8 @@ authors: [cozyGalvinism]
 description: Allows for scriptable chat colors!
 
 permissions:
-  chatcolorlua.script:
-    description: ability to change chat colors using scripts
+  chatcolorlua.gui:
+    description: ability to change chat colors
     default: op
 
 commands:
