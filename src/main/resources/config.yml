@@ -1,0 +1,2 @@
+database: jdbc:sqlite:plugins/ChatColor.lua/scripts.db
+disabled: []
