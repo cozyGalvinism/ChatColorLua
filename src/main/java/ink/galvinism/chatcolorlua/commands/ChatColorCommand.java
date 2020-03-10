@@ -30,7 +30,7 @@ public class ChatColorCommand implements CommandExecutor {
     }
 
     private IconMenu buildMenu(Player p) {
-        Stream<ChatScript> scriptStream = plugin.getLoadedScripts().values().stream().filter(chatScript -> p.hasPermission("chatcolor.use." + chatScript.getPermission().tojstring()));
+        Stream<ChatScript> scriptStream = plugin.getLoadedScripts().values().stream().filter(chatScript -> p.hasPermission("chatcolorlua.use." + chatScript.getPermission().tojstring()));
         FilenameComparator comp = new FilenameComparator();
         List<ChatScript> authorized = scriptStream.sorted((o1, o2) -> comp.compare(o1.getFileName(), o2.getFileName())).collect(Collectors.toList());
         double count = (double)authorized.size();
