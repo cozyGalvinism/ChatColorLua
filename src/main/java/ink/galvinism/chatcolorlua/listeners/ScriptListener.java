@@ -1,6 +1,7 @@
 package ink.galvinism.chatcolorlua.listeners;
 
 import ink.galvinism.chatcolorlua.ChatColorLua;
+import ink.galvinism.chatcolorlua.ChatScript;
 import ink.galvinism.chatcolorlua.models.ChatColorScript;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -39,7 +40,8 @@ public class ScriptListener implements Listener {
             return;
         }
         if(script == null) return;
-        if(!e.getPlayer().hasPermission("chatcolorlua.use." + script.getScript())) return;
+        ChatScript cScript = plugin.getLoadedScripts().get(script.getScript());
+        if(!e.getPlayer().hasPermission("chatcolorlua.use." + cScript.getPermission().tojstring())) return;
         if(!plugin.getLoadedScripts().containsKey(script.getScript())) {
             plugin.getLogger().warning("Script " + script.getScript() + " doesn't exist anymore! Removing...");
             try {
