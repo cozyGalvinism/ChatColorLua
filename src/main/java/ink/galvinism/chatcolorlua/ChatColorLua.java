@@ -9,7 +9,6 @@ import ink.galvinism.chatcolorlua.commands.ChatColorCommand;
 import ink.galvinism.chatcolorlua.listeners.ScriptListener;
 import ink.galvinism.chatcolorlua.models.ChatColorScript;
 import ink.galvinism.chatcolorlua.utils.FileComparator;
-import ink.galvinism.chatcolorlua.utils.FilenameComparator;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -24,7 +23,6 @@ import org.luaj.vm2.lib.jse.JseMathLib;
 import java.io.*;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
@@ -112,6 +110,7 @@ public final class ChatColorLua extends JavaPlugin {
         return loadedScripts;
     }
 
+    /*
     private Map<LuaValue, LuaValue> convertFromLuaTable(LuaTable table) {
         HashMap<LuaValue, LuaValue> tableContents = new HashMap<>();
         LuaValue k = LuaValue.NIL;
@@ -123,6 +122,7 @@ public final class ChatColorLua extends JavaPlugin {
         }
         return tableContents;
     }
+    */
 
     public String rainbowify(String original) {
         String[] chars = new String[]{"c&l", "6&l", "e&l", "a&l", "b&l", "3&l", "d&l"};

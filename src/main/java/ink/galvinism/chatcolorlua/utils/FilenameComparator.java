@@ -1,6 +1,5 @@
 package ink.galvinism.chatcolorlua.utils;
 
-import java.io.File;
 import java.math.BigInteger;
 import java.util.Comparator;
 import java.util.regex.Pattern;

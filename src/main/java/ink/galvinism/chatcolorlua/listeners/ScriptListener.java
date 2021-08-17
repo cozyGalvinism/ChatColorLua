@@ -3,21 +3,15 @@ package ink.galvinism.chatcolorlua.listeners;
 import ink.galvinism.chatcolorlua.ChatColorLua;
 import ink.galvinism.chatcolorlua.ChatScript;
 import ink.galvinism.chatcolorlua.models.ChatColorScript;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
+import ink.galvinism.chatcolorlua.utils.ColorUtils;
+import io.papermc.paper.event.player.AsyncChatEvent;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
+
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerEditBookEvent;
 import org.luaj.vm2.*;
-import org.luaj.vm2.compiler.LuaC;
-import org.luaj.vm2.lib.PackageLib;
-import org.luaj.vm2.lib.StringLib;
-import org.luaj.vm2.lib.ZeroArgFunction;
-import org.luaj.vm2.lib.jse.JseBaseLib;
-import org.luaj.vm2.lib.jse.JseMathLib;
 
 import java.util.logging.Level;
 
@@ -30,7 +24,7 @@ public class ScriptListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onChat(AsyncPlayerChatEvent e) {
+    public void onChat(AsyncChatEvent e) {
         if(e.isCancelled()) return;
         ChatColorScript script;
         try {
@@ -55,12 +49,12 @@ public class ScriptListener implements Listener {
 
         try {
             LuaString colorResult = plugin.getLoadedScripts().get(script.getScript()).getFunction()
-                    .call(LuaString.valueOf(e.getMessage())).checkstring();
+                    .call(LuaString.valueOf(PlainTextComponentSerializer.plainText().serialize(e.message()))).checkstring();
             if(colorResult.tojstring().trim().isEmpty()) {
                 e.setCancelled(true);
                 return;
             }
-            e.setMessage(ChatColor.translateAlternateColorCodes('&', colorResult.toString()));
+            e.message(Component.text(ColorUtils.translateHexColorCodes(colorResult.toString())));
         } catch (LuaError l) {
             plugin.getLogger().log(Level.SEVERE, "Error while trying to apply chat format", l);
         }

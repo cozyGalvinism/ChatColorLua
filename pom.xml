@@ -6,16 +6,23 @@
 
     <groupId>ink.galvinism</groupId>
     <artifactId>ChatColorLua</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>ChatColor.lua</name>
 
     <description>Allows for scriptable chat colors!</description>
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>16</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>maven-snapshots</id>
+            <url>https://repository.apache.org/content/repositories/snapshots/</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <build>
         <defaultGoal>clean package</defaultGoal>
@@ -23,7 +30,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
+                <version>3.8.1</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -32,7 +39,19 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.3.0-SNAPSHOT</version>
+                <configuration>
+                    <relocations>
+                        <relocation>
+                            <pattern>dev.triumphteam.gui</pattern>
+                            <shadedPattern>ink.galvinism.chatcolorlua.gui</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.j256.ormlite</pattern>
+                            <shadedPattern>ink.galvinism.chatcolorlua.ormlite</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -63,13 +82,26 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+        <repository>
+            <id>mfgui-repo</id>
+            <url>https://repo.mattstudios.me/artifactory/public/</url>
+        </repository>
+        <repository>
+            <id>papermc</id>
+            <url>https://papermc.io/repo/repository/maven-public/</url>
+        </repository>
     </repositories>
 
     <dependencies>
         <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.15.2-R0.1-SNAPSHOT</version>
+            <groupId>dev.triumphteam</groupId>
+            <artifactId>triumph-gui</artifactId>
+            <version>3.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>io.papermc.paper</groupId>
+            <artifactId>paper-api</artifactId>
+            <version>1.17.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
