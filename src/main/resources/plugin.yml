@@ -14,4 +14,3 @@ permissions:
 commands:
   chatcolor:
     description: Show your true colors!
-    aliases: [cc]
