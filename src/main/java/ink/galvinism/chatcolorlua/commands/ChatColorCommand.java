@@ -12,6 +12,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaString;
 
 import dev.triumphteam.gui.builder.gui.PaginatedBuilder;
@@ -57,8 +58,16 @@ public class ChatColorCommand implements CommandExecutor {
 
         for (ChatScript script : authorized) {
             ItemBuilder item;
-            LuaString colorResult = script.getFunction()
+            LuaString colorResult;
+            
+            try {
+                colorResult = script.getFunction()
                     .call(LuaString.valueOf("SkyCraftia is awesome!")).checkstring();
+            } catch (LuaError e) {
+                plugin.getLogger().log(Level.SEVERE, "Error while executing script " + script.getFileName(), e);
+                continue;
+            }
+
             if(script.getDescription() != null && !script.getDescription().tojstring().trim().isEmpty()) {
                 item = ItemBuilder
                     .from(Material.valueOf(script.getIcon().tojstring()))
