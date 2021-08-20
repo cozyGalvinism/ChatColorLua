@@ -6,6 +6,7 @@ import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import ink.galvinism.chatcolorlua.commands.ChatColorCommand;
+import ink.galvinism.chatcolorlua.listeners.DeluxeChatListener;
 import ink.galvinism.chatcolorlua.listeners.ScriptListener;
 import ink.galvinism.chatcolorlua.models.ChatColorScript;
 import ink.galvinism.chatcolorlua.utils.FileComparator;
@@ -102,7 +103,15 @@ public final class ChatColorLua extends JavaPlugin {
             return;
         }
 
-        Bukkit.getPluginManager().registerEvents(new ScriptListener(this), this);
+        // if DeluxeChat is loaded, register DeluxeChatListener
+        // if not, register ScriptListener
+        if(Bukkit.getPluginManager().getPlugin("DeluxeChat") != null) {
+            getLogger().info("DeluxeChat detected, registering DeluxeChatListener");
+            Bukkit.getPluginManager().registerEvents(new DeluxeChatListener(this), this);
+        }else {
+            Bukkit.getPluginManager().registerEvents(new ScriptListener(this), this);
+        }
+
         getCommand("chatcolor").setExecutor(new ChatColorCommand(this));
     }
 

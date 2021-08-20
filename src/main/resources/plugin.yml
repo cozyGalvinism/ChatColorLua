@@ -5,6 +5,7 @@ api-version: 1.13
 prefix: ChatColor.lua
 authors: [cozyGalvinism]
 description: Allows for scriptable chat colors!
+softdepend: [ "DeluxeChat" ]
 
 permissions:
   chatcolorlua.gui:

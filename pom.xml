@@ -6,7 +6,7 @@
 
     <groupId>ink.galvinism</groupId>
     <artifactId>ChatColorLua</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <packaging>jar</packaging>
 
     <name>ChatColor.lua</name>
@@ -15,6 +15,7 @@
     <properties>
         <java.version>16</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <libPath>${project.basedir}/libs</libPath>
     </properties>
 
     <pluginRepositories>
@@ -90,9 +91,19 @@
             <id>papermc</id>
             <url>https://papermc.io/repo/repository/maven-public/</url>
         </repository>
+        <repository>
+            <id>placeholderapi</id>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
     </repositories>
 
     <dependencies>
+        <dependency>
+            <groupId>me.clip</groupId>
+             <artifactId>placeholderapi</artifactId>
+             <version>2.10.10</version>
+            <scope>provided</scope>
+           </dependency>
         <dependency>
             <groupId>dev.triumphteam</groupId>
             <artifactId>triumph-gui</artifactId>
@@ -118,6 +129,13 @@
             <groupId>com.j256.ormlite</groupId>
             <artifactId>ormlite-jdbc</artifactId>
             <version>5.1</version>
+        </dependency>
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>DeluxeChat</artifactId>
+            <version>1.17</version>
+            <scope>system</scope>
+            <systemPath>${libPath}/DeluxeChat-1.17.jar</systemPath>
         </dependency>
     </dependencies>
 </project>
